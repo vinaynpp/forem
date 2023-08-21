@@ -11,13 +11,18 @@ ports:
 tasks:
   - name: Forem Server
     before: gem install dip
-    init: dip provision
+    init: |
+      cp .env_sample .env
+      echo "APP_DOMAIN=\"$(gp url 3000 | cut -f 3 -d /)\"" >> .env
+      echo 'APP_PROTOCOL="https://"' >> .env
+      dip provision
     command: dip up web
   - name: Open Site
     command: >
       gp ports await 3000 &&
       printf "Waiting for local Forem development environment to load in the browser..." &&
-      gp preview $(gp url 3000)
+      gp preview $(gp url 3000) &&
+      exit
 
 github:
   prebuilds:
