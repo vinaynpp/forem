@@ -10,10 +10,9 @@ ports:
 
 tasks:
   - name: Forem Server
-    command: |
-      gem install dip
-      dip provision
-      dip up web
+    before: gem install dip
+    init: dip provision
+    command: dip up web
   - name: Open Site
     command: >
       gp ports await 3000 &&
