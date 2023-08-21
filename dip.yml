@@ -72,7 +72,6 @@ provision:
   # We need the `|| true` part because some docker-compose versions
   # cannot down a non-existent container without an error,
   # see https://github.com/docker/compose/issues/9426
-  - dip compose down --volumes || true
   - dip compose up -d postgres
   - dip compose up -d redis
   - dip bash -c bin/setup
