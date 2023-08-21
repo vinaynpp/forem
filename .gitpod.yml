@@ -1,5 +1,5 @@
 image:
-  file: .gitpod.dockerfile
+  file: .dockerdev/Dockerfile
 
 ports:
   - port: 3000
@@ -13,12 +13,10 @@ ports:
 
 tasks:
   - name: Forem Server
-    before: >
-      redis-server &
-      gp ports await 5432 &&
-      sleep 1
-    init: ./gitpod-init.sh
-    command: bin/startup
+    command: |
+      gem install dip
+      dip provision
+      dip up web
   - name: Open Site
     command: >
       gp ports await 3000 &&
