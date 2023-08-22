@@ -8,7 +8,7 @@ environment:
 compose:
   files:
     - .dockerdev/compose.yml
-  project_name: practicaldeveloper
+  project_name: forem
 
 interaction:
   # This command spins up a Rails container with the required dependencies (such as databases),
