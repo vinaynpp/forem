@@ -31,7 +31,7 @@ x-backend: &backend
     - ./.bashrc:/root/.bashrc:ro
   environment: &backend_environment
     <<: *env
-    REDIS_URL: redis://redis:6379/
+    REDIS_URL: redis://localhost:6379/
     DATABASE_URL: postgres://postgres:postgres@postgres:5432
     WEBPACKER_DEV_SERVER_HOST: webpacker
     MALLOC_ARENA_MAX: 2

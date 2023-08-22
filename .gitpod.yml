@@ -14,10 +14,8 @@ tasks:
       gem install dip
       cp .env_sample .env
       echo "APP_DOMAIN=\"$(gp url 3000 | cut -f 3 -d /)\"" >> .env
-      echo 'REDIS_URL="redis://redis:6379"' >> .env
-      echo 'REDIS_SESSIONS_URL="redis://redis:6379"' >> .env
       echo 'APP_PROTOCOL="https://"' >> .env
-      dip provision
+    init: dip provision
     command: dip up web
   - name: Open Site
     command: >
