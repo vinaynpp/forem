@@ -10,12 +10,12 @@ ports:
 
 tasks:
   - name: Forem Server
-    before: gem install dip
-    init: |
+    before: |
+      gem install dip
       cp .env_sample .env
       echo "APP_DOMAIN=\"$(gp url 3000 | cut -f 3 -d /)\"" >> .env
       echo 'APP_PROTOCOL="https://"' >> .env
-      dip provision
+    init: dip provision
     command: dip up web
   - name: Open Site
     command: >
