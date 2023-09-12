@@ -42,6 +42,32 @@ function toggleDropdown(type) {
   document.querySelector(`#${type}-options`).classList.toggle('hidden');
 }
 
+function expandTagAdjustmentHistory() {
+  const expandableAdjustments = document.getElementsByClassName(
+    'expandable-adjustment',
+  );
+  const expandButton = document.getElementById('expand-tag-history');
+  const truncateButton = document.getElementById('truncate-tag-history');
+  expandButton.classList.add('hidden');
+  truncateButton.classList.remove('hidden');
+  Array.from(expandableAdjustments).forEach((el) => {
+    el.classList.remove('hidden');
+  });
+}
+
+function truncateTagAdjustmentHistory() {
+  const expandableAdjustments = document.getElementsByClassName(
+    'expandable-adjustment',
+  );
+  const expandButton = document.getElementById('expand-tag-history');
+  const truncateButton = document.getElementById('truncate-tag-history');
+  expandButton.classList.remove('hidden');
+  truncateButton.classList.add('hidden');
+  Array.from(expandableAdjustments).forEach((el) => {
+    el.classList.add('hidden');
+  });
+}
+
 function applyReactedClass(category) {
   const upVote = document.querySelector("[data-category='thumbsup']");
   const downVote = document.querySelector("[data-category='thumbsdown']");
@@ -509,9 +535,20 @@ export function addModActionsListeners() {
     ?.addEventListener('click', toggleUnpublishPostModal);
 }
 
+export function addTagHistoryListeners() {
+  document
+    .getElementById('expand-tag-history')
+    ?.addEventListener('click', expandTagAdjustmentHistory);
+
+  document
+    .getElementById('truncate-tag-history')
+    ?.addEventListener('click', truncateTagAdjustmentHistory);
+}
+
 export function initializeActionsPanel() {
   initializeHeight();
   addCloseListener();
   addReactionButtonListeners();
   addModActionsListeners();
+  addTagHistoryListeners();
 }

@@ -205,9 +205,17 @@
         <% end %>
         <% if @moderatable.ordered_tag_adjustments.any? %>
           <div id="tag-moderation-history">
-            <h1><%= t("views.moderations.actions.adjust.previous") %></h1>
-            <% @moderatable.ordered_tag_adjustments.each do |adj| %>
-              <div id="tag-adjustment-<%= adj.id %>" class="tag-adjustment">
+            <h1>
+              <span><%= t("views.moderations.actions.adjust.previous") %></span>
+              <% if @moderatable.ordered_tag_adjustments.count > 2 %>
+                <button id="expand-tag-history" class="left-8 crayons-btn crayons-btn--ghost"><%= t("views.moderations.actions.adjust.expand") %></button>
+                <button id="truncate-tag-history" class="left-9 crayons-btn crayons-btn--ghost crayons-btn--icon-rounded hidden" type="button" title="<%= t("views.moderations.actions.close") %>">
+                  <%= crayons_icon_tag(:x, title: t("views.moderations.actions.adjust.close")) %>
+                </button>
+              <% end %>
+            </h1>
+            <% @moderatable.ordered_tag_adjustments.each_with_index do |adj, i| %>
+              <div id="tag-adjustment-<%= adj.id %>" class="tag-adjustment<%= i > 1 ? " hidden expandable-adjustment" : "" %>">
                 <span class="num-sign">#</span>
                 <span><%= adj.tag_name %></span>
                 <span class="adjustment-type">
